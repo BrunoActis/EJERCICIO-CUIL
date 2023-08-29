@@ -8,6 +8,41 @@ namespace CUIL
 {
     class Program
     {
+
+        static string ValidarIngreso()
+        {
+            Console.WriteLine("Ingresar si es hombre (h), mujer (m) o empresa (e)");
+            string tipo = Console.ReadLine();
+            while ((tipo != "h") && (tipo != "m") && (tipo != "e"))
+            {
+                Console.Clear();
+                Console.WriteLine("el valor ingresado no corresponde a las opciones, elija de nuevo por favor:");
+                Console.WriteLine("Ingresar si es hombre (h), mujer (m) o empresa (e)");
+                Console.Write("Su opcion es : ");
+                tipo = Console.ReadLine();  
+            }
+            return tipo;
+        }
+        static string ValidarDni()
+        {
+            string letras = "[abcdefghijklmnopqrstuvwxyz]";
+            Console.WriteLine("Ingrese su número de DNI");
+            string DNI = Console.ReadLine();
+
+            bool coincidencia = (letras.Intersect(DNI).Count() > 0);
+            while (coincidencia == true || DNI.Length != 8)
+            {
+                Console.Clear();
+                Console.WriteLine("Recuerde que el DNI no debe contener letras y debe ser de 8 digitos numericos");
+                Console.Write("Vuelva a ingresar su DNI: ");
+                DNI = Console.ReadLine();
+                coincidencia = (letras.Intersect(DNI).Count() > 0);
+                Console.ReadKey();
+            }
+
+            return DNI;
+        }
+
         static void Main(string[] args)
         {
             string tipo;
@@ -17,63 +52,40 @@ namespace CUIL
             int N;
             int DV;
 
-
-            Console.WriteLine("Ingresar si es hombre (H), mujer (M) o empresa (E)");
-            tipo = Console.ReadLine();
-
-            Console.WriteLine("Ingrese su número de DNI");
-            DNI = Console.ReadLine();
-
-
+            tipo = ValidarIngreso();
+            DNI = ValidarDni();
 
             switch (tipo)
             {
                 case "h":
 
-
                     suma = 10 + ((int)char.GetNumericValue(DNI[0]) * 3) + ((int)char.GetNumericValue(DNI[1]) * 2) + ((int)char.GetNumericValue(DNI[2]) * 7) + ((int)char.GetNumericValue(DNI[3]) * 6) + ((int)char.GetNumericValue(DNI[4]) * 5) + ((int)char.GetNumericValue(DNI[5]) * 4) + ((int)char.GetNumericValue(DNI[6]) * 3) + ((int)char.GetNumericValue(DNI[7]) * 2);
-
                     redondeo = suma / 11;
-
-                    Console.WriteLine(redondeo);
-                    Console.ReadKey();
-
-
-
                     N = suma - (redondeo * 11);
+                    DV = (11 - N);
+                    Console.WriteLine($"20-{DNI}-{DV}");
+                    break;
 
-                    DV = N + 11;
+                case "m":
 
-                    Console.WriteLine($"20{DNI}{DV}");
-                    Console.WriteLine(DV);
+                    suma = 38 + ((int)char.GetNumericValue(DNI[0]) * 3) + ((int)char.GetNumericValue(DNI[1]) * 2) + ((int)char.GetNumericValue(DNI[2]) * 7) + ((int)char.GetNumericValue(DNI[3]) * 6) + ((int)char.GetNumericValue(DNI[4]) * 5) + ((int)char.GetNumericValue(DNI[5]) * 4) + ((int)char.GetNumericValue(DNI[6]) * 3) + ((int)char.GetNumericValue(DNI[7]) * 2);
+                    redondeo = suma / 11;
+                    N = suma - (redondeo * 11);
+                    DV = (11 - N);
+                    Console.WriteLine($"20-{DNI}-{DV}");
+                    break;
+
+                case "e":
+
+                    suma = 15 + ((int)char.GetNumericValue(DNI[0]) * 3) + ((int)char.GetNumericValue(DNI[1]) * 2) + ((int)char.GetNumericValue(DNI[2]) * 7) + ((int)char.GetNumericValue(DNI[3]) * 6) + ((int)char.GetNumericValue(DNI[4]) * 5) + ((int)char.GetNumericValue(DNI[5]) * 4) + ((int)char.GetNumericValue(DNI[6]) * 3) + ((int)char.GetNumericValue(DNI[7]) * 2);
+                    redondeo = suma / 11;
+                    N = suma - (redondeo * 11);
+                    DV = (11 - N);
+                    Console.WriteLine($"20-{DNI}-{DV}");
 
                     break;
 
-
-
-
             }
-
-
-            /*     DNI 12.345.678 Masculino
-
-
-                      2 0 1 2 3 4 5 6 7 8
-                      x
-                      5 4 3 2 7 6 5 4 3 2
-                     ———————————————————— 
-                     10 + 0 + 3 + 4 + 21 + 24 + 25 + 24 + 21 + 16 = 148
-
-
-             148 dividido 11 = 5(porque 148 / 11 = 13, 454 –; .454 se redondea a 5). 
-             11 - 5 = 6
-
-
-
-
-             Entonces, el CUIL | CUIT es 20 - 12345678 - 6 */
-
-
 
             Console.ReadKey();
 
